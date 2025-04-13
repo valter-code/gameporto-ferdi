@@ -499,7 +499,31 @@
             border: var(--pixel-border) solid rgba(80, 250, 123, 0.3);
             box-shadow: 0 4px 0 rgba(0, 0, 0, 0.3);
         }
-        
+
+        .development-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.development-tag {
+  background-color: rgba(255, 140, 0, 0.85);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.development-tag i {
+  margin-right: 6px;
+}        
         @keyframes gradient {
             0% {background-position: 0% 50%;}
             50% {background-position: 100% 50%;}
@@ -659,6 +683,40 @@
                         </div>
                     </div>
                     
+                    <div class="game-item" data-aos="fade-up" data-aos-delay="100">
+                        <!-- Image Carousel for Game 2 -->
+                        <div class="carousel" id="carousel2">
+                          <div class="carousel-inner">
+                            <div class="carousel-item active position-relative">
+                              <img src="img/" alt="Langkah Jakarta - Screenshot 1">
+                              <div class="development-badge">
+                                <span class="development-tag"><i class="fa fa-cog fa-spin"></i> Under Development</span>
+                              </div>
+                            </div>
+                          </div>
+                          <button class="carousel-control carousel-prev" onclick="moveCarousel('carousel2', -1)">
+                            <i class="fa fa-chevron-left"></i>
+                          </button>
+                          <button class="carousel-control carousel-next" onclick="moveCarousel('carousel2', 1)">
+                            <i class="fa fa-chevron-right"></i>
+                          </button>
+                          <div class="carousel-indicators">
+                            <div class="carousel-indicator active" onclick="goToSlide('carousel2', 0)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('carousel2', 1)"></div>
+                            <div class="carousel-indicator" onclick="goToSlide('carousel2', 2)"></div>
+                          </div>
+                        </div>
+                        <h3 class="game-title">Langkah Jakarta</h3>
+                        <p class="game-desc">An upcoming campus life RPG where players take on the role of a college student living away from home. Still in development, the game will feature top-down pixel art, interactive classes, social relationships, and seasonal campus events. Balance your studies, part-time jobs, and moral choices in a dynamic world where every decision matters. Designed to offer a cozy yet immersive experience of student life.</p>
+                        <div class="game-links">
+                          <a href="#" class="pixel-btn" onclick="openModal('game2')">
+                            <i class="fa fa-play"></i> Demo
+                          </a>
+                          <a href="#" class="pixel-btn">
+                            <i class="fa-brands fa-github"></i> Source
+                          </a>
+                        </div>
+                      </div>
                     
                     
                 </div>
@@ -684,8 +742,8 @@
     <div id="gameModal1" class="modal">
         <div class="modal-content">
             <img src="/api/placeholder/800/500" alt="Pixel Knight: The Lost Relic" class="modal-image">
-            <h3 class="game-title">Pixel Knight: The Lost Relic</h3>
-            <p>Experience the adventure in this side-scrolling action RPG. This gameplay demo shows the first level with basic combat mechanics and the first boss encounter.</p>
+            <h3 class="game-title">Pixel Blaster: The Coin Chase</h3>
+            <p>A fast-paced side-scrolling action platformer where players control a hero armed with a blaster, navigating dynamic levels filled with enemies, obstacles, and collectible coins. Players can shoot while jumping, conquer slopes, and face crawling enemies with unpredictable behavior. Featuring pixel art visuals, natural shooting physics, and a catchy chiptune soundtrack, the game offers exciting solo gameplay or a thrilling 2-player split-screen experience. Collect coins, defeat enemies, and overcome challenges in this action-packed adventure.</p>
             <button class="modal-close" onclick="closeModal('game1')">Close</button>
         </div>
     </div>
@@ -693,8 +751,8 @@
     <div id="gameModal2" class="modal">
         <div class="modal-content">
             <img src="/api/placeholder/800/500" alt="Dungeon Delver" class="modal-image">
-            <h3 class="game-title">Dungeon Delver</h3>
-            <p>Dive into procedurally generated dungeons in this roguelike RPG. The demo showcases the character creation system and the first level with basic combat.</p>
+            <h3 class="game-title">Farm Horizons</h3>
+            <p>A simple farming RPG where players manage their own farm, grow crops, raise animals, and build relationships with the local community. Each season brings new challenges and opportunities to expand the farm, with an emphasis on resource management and creating a thriving homestead. Enjoy a peaceful, relaxing gameplay experience with easy-to-learn mechanics and a charming, top-down view..</p>
             <button class="modal-close" onclick="closeModal('game2')">Close</button>
         </div>
     </div>
@@ -702,18 +760,9 @@
     <div id="gameModal3" class="modal">
         <div class="modal-content">
             <img src="/api/placeholder/800/500" alt="Chrono Tactics" class="modal-image">
-            <h3 class="game-title">Chrono Tactics</h3>
-            <p>Command your squad in this turn-based tactical RPG with time manipulation. This demo features a tutorial battle showcasing the unique time control mechanics.</p>
+            <h3 class="game-title">Langkah Kampus</h3>
+            <p>An upcoming campus life RPG where players take on the role of a college student living away from home. Still in development, the game will feature top-down pixel art, interactive classes, social relationships, and seasonal campus events. Balance your studies, part-time jobs, and moral choices in a dynamic world where every decision matters. Designed to offer a cozy yet immersive experience of student life..</p>
             <button class="modal-close" onclick="closeModal('game3')">Close</button>
-        </div>
-    </div>
-
-    <div id="gameModal4" class="modal">
-        <div class="modal-content">
-            <img src="/api/placeholder/800/500" alt="Pixel Farm Simulator" class="modal-image">
-            <h3 class="game-title">Pixel Farm Simulator</h3>
-            <p>Build and manage your dream farm in this relaxing simulation game. The demo shows the first season gameplay with basic farming mechanics and villager interactions.</p>
-            <button class="modal-close" onclick="closeModal('game4')">Close</button>
         </div>
     </div>
 
