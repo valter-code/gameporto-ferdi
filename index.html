@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmad Ferdiansyah - Game Developer</title>
+    <meta name="description" content="Ferdi, a Game Developer specializing in pixel art RPG games using Godot Engine, GDScript, and Construct 2.">
+    <link rel="icon" class="js-site-favicon" type="image/ico" href="https://cdn.jsdelivr.net/gh/SazumiVicky/Storage@main/sazumiviki-ico.ico">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://kit.fontawesome.com/3.4.16"></script>
+    <style>
+        :root {
+            --pixel-border: 4px;
+            --main-bg: #03001d;
+            --main-text: #ffffff;
+            --accent-color: #50fa7b;
+            --highlight: #ff79c6;
+            --secondary-bg: rgba(255, 255, 255, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--main-bg);
+            color: var(--main-text);
+            font-family: 'VT323', monospace;
+            font-size: 18px;
+            line-height: 1.6;
+            image-rendering: pixelated;
+            /* Add padding to bottom to account for fixed navbar */
+            padding-bottom: 80px;
+        }
+        
+        header {
+            background-image: radial-gradient(45rem 50rem at top, #e0e7ff12, var(--main-bg));
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            line-height: 1.4;
+            text-shadow: 2px 2px 0 #000;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            text-shadow: 2px 2px 0 #000;
+            margin-bottom: 1.5rem;
+        }
+        
+        h3 {
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 0 #000;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        .profile {
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .profile-name {
+            margin: 1rem 0;
+            color: var(--accent-color);
+            text-shadow: 2px 2px 0 #000;
+        }
+        
+        .navbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 5000;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-around;
+            border-top: var(--pixel-border) solid var(--accent-color);
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.8rem;
+            color: var(--main-text);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item:hover {
+            color: var(--accent-color);
+            transform: translateY(-5px);
+        }
+        
+        .nav-item i {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+        }
+
+        section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        section:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, var(--accent-color) 0%, transparent 10%, transparent 90%, var(--accent-color) 100%);
+            z-index: -1;
+            margin: -2px;
+            border-radius: inherit;
+            pointer-events: none;
+        }
+        
+        .section-background {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .skill-item {
+            background-color: var(--secondary-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: o.5rem;
+            border: var(--pixel-border) solid rgba(80, 250, 123, 0.3);
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .skill-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-color);
+        }
+        
+        .project {
+            background-color: var(--secondary-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: var(--pixel-border) solid rgba(80, 250, 123, 0.3);
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-color);
+        }
+        
+        .animated-gradient {
+            background: linear-gradient(90deg, var(--accent-color), var(--highlight), var(--accent-color));
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: gradient 3s linear infinite;
+            font-weight: bold;
+        }
+        
+        hr {
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            margin: 2rem 0;
+        }
+        
+        footer {
+            padding: 2rem 0;
+            text-align: center;
+            background-image: radial-gradient(45rem 50rem at top, #e0e7ff12, var(--main-bg));
+            margin-bottom: 80px; /* Increased margin to ensure visibility above navbar */
+        }
+        
+        footer a {
+            color: var(--main-text);
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        footer a:hover {
+            color: var(--highlight);
+            transform: scale(1.2);
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        
+        .tech-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--secondary-bg);
+            border-radius: 8px;
+            padding: 1rem;
+            width: 100px;
+            height: 100px;
+            justify-content: center;
+            border: var(--pixel-border) solid rgba(80, 250, 123, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .tech-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+        
+        .tech-item i {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tech-name {
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .game-showcase {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .game-showcase {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .game-item {
+            background-color: var(--secondary-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: var(--pixel-border) solid rgba(80, 250, 123, 0.3);
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .game-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-color);
+        }
+        
+        /* Image Carousel Styles */
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 2px solid rgba(80, 250, 123, 0.3);
+        }
+        
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.3s ease;
+            height: 100%;
+            width: 100%;
+        }
+        
+        .carousel-item {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-control:hover {
+            background-color: var(--accent-color);
+            color: var(--main-bg);
+        }
+        
+        .carousel-prev {
+            left: 10px;
+        }
+        
+        .carousel-next {
+            right: 10px;
+        }
+        
+        .carousel-indicators {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        .carousel-indicator {
+            width: 8px;
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-indicator.active {
+            background-color: var(--accent-color);
+            transform: scale(1.2);
+        }
+        
+        .game-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+        
+        .game-desc {
+            margin-bottom: 1rem;
+        }
+        
+        .game-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .game-links a {
+            color: var(--main-text);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .game-links a:hover {
+            color: var(--highlight);
+        }
+        
+        .modal {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        
+        .modal.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .modal-content {
+            background-color: var(--main-bg);
+            border-radius: 8px;
+            border: var(--pixel-border) solid var(--accent-color);
+            max-width: 90%;
+            width: 800px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            transform: scale(0.9);
+            transition: all 0.3s ease;
+        }
+        
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+        
+        .modal-image {
+            width: 100%;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-close {
+            display: block;
+            margin: 1rem auto 0;
+            padding: 0.5rem 1.5rem;
+            background-color: var(--secondary-bg);
+            color: var(--main-text);
+            border: 2px solid var(--accent-color);
+            border-radius: 4px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            background-color: var(--accent-color);
+            color: var(--main-bg);
+        }
+        
+        .pixel-btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--secondary-bg);
+            color: var(--main-text);
+            text-decoration: none;
+            border: 2px solid var(--accent-color);
+            border-radius: 4px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .pixel-btn:hover {
+            background-color: var(--accent-color);
+            color: var(--main-bg);
+        }
+        
+        .new-section {
+            background-color: var(--secondary-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem auto;
+            max-width: 800px;
+            border: var(--pixel-border) solid rgba(80, 250, 123, 0.3);
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.3);
+        }
+        
+        @keyframes gradient {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <!-- Header content -->
+        </div>
+    </header>
+
+    <div class="navbar" data-aos="fade-up">
+        <a href="#" class="nav-item" data-aos="fade-up" data-aos-delay="50">
+            <i class="fa fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="#skills" class="nav-item" data-aos="fade-up" data-aos-delay="100">
+            <i class="fa fa-code"></i>
+            <span>Skills</span>
+        </a>
+        <a href="#projects" class="nav-item" data-aos="fade-up" data-aos-delay="150">
+            <i class="fa fa-gamepad"></i>
+            <span>Games</span>
+        </a>
+        <a href="#contact" class="nav-item" data-aos="fade-up" data-aos-delay="200">
+            <i class="fa fa-envelope"></i>
+            <span>Contact</span>
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="profile text-center">
+            <h1 class="profile-name" data-aos="fade-right">Ahmad Ferdiansyah</h1>
+            <p data-aos="fade-left"> Student at SMK Trimulia Jakarta| Game Developer | Level Designer | RPG Specialist</p>
+            <div class="new-section">
+                <p><b>A passionate indie game developer focused on RPG and platformer games.</b> I enjoy designing gameplay mechanics, building levels, and experimenting with new ideas using engines like Godot and Construct 2. I’ve released two small-scale projects and continue to learn and grow through every game I make. I often use free assets to prototype ideas quickly and focus on delivering fun, playable experiences. Always excited to improve and connect with the indie dev community.</p>
+
+                <p>Currently, I’m working on a <b>campus-life RPG</b> with top-down pixel art, simulating student life where players can engage in social activities, build relationships, and follow different major-specific quests. While still in development, I aim to create a game that combines the dynamics of academic life with RPG elements.</p>
+                
+                <p>In the past, I’ve also developed a farming RPG inspired by games like Stardew Valley and a platformer game, experimenting with different mechanics and gameplay styles to keep evolving as a game developer.</p>
+                
+            </div>
+        </div>
+        
+        <hr>
+        
+        <main>
+            <section id="skills" class="section-background">
+                <h2 class="text-center animated-gradient" data-aos="fade-down">⚡ Tech Stack</h2>
+                <div class="tech-stack">
+                    <div class="tech-item" data-aos="zoom-in" data-aos-delay="50">
+                        <i class="fa-brands fa-godot-engine"></i>
+                        <span class="tech-name">Godot Engine</span>
+                    </div>
+                    <div class="tech-item" data-aos="zoom-in" data-aos-delay="100">
+                        <i class="fa-solid fa-code"></i>
+                        <span class="tech-name">GDScript</span>
+                    </div>
+                    <div class="tech-item" data-aos="zoom-in" data-aos-delay="150">
+                        <i class="fa-solid fa-gamepad"></i>
+                        <span class="tech-name">Construct 2</span>
+                    </div>
+                    <div class="tech-item" data-aos="zoom-in" data-aos-delay="200">
+                        <i class="fa-brands fa-git-alt"></i>
+                        <span class="tech-name">Git</span>
+                    </div>
+                    <div class="tech-item" data-aos="zoom-in" data-aos-delay="250">
+                        <i class="fa-solid fa-palette"></i>
+                        <span class="tech-name">Pixel Sprite</span>
+                    </div>
+                    <div class="tech-item" data-aos="zoom-in" data-aos-delay="400">
+                        <i class="fa-solid fa-cubes"></i>
+                        <span class="tech-name">Tiled</span>
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects">
+                <h2 class="text-center animated-gradient" data-aos="fade-up">🚀 Game Projects</h2>
+                <div class="game-showcase">
+                    <div class="game-item" data-aos="fade-up">
+                        <!-- Image Carousel for Game 1 -->
+                        <div class="carousel" id="carousel1">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="img/Pixel_Blaster1.png" alt="Pixel Blaster: The Coin Chase - Screenshot 1">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="img/Pixel_Blaster2.png" alt="Pixel Blaster: The Coin Chase - Screenshot 2">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="img/Pixel_Blaster3.png" alt="Pixel Blaster: The Coin Chase - Screenshot 3">
+                                </div>
+                            </div>
+                            <button class="carousel-control carousel-prev" onclick="moveCarousel('carousel1', -1)">
+                                <i class="fa fa-chevron-left"></i>
+                            </button>
+                            <button class="carousel-control carousel-next" onclick="moveCarousel('carousel1', 1)">
+                                <i class="fa fa-chevron-right"></i>
+                            </button>
+                            <div class="carousel-indicators">
+                                <div class="carousel-indicator active" onclick="goToSlide('carousel1', 0)"></div>
+                                <div class="carousel-indicator" onclick="goToSlide('carousel1', 1)"></div>
+                                <div class="carousel-indicator" onclick="goToSlide('carousel1', 2)"></div>
+                            </div>
+                        </div>
+                        <h3 class="game-title">Pixel Blaster: The Coin Chase</h3>
+                        <p class="game-desc">A fast-paced side-scrolling action platformer where players control a hero armed with a blaster, navigating dynamic levels filled with enemies, obstacles, and collectible coins. Players can shoot while jumping, conquer slopes, and face crawling enemies with unpredictable behavior. Featuring pixel art visuals, natural shooting physics, and a catchy chiptune soundtrack, the game offers exciting solo gameplay or a thrilling 2-player split-screen experience. Collect coins, defeat enemies, and overcome challenges in this action-packed adventure.</p>
+                        <div class="game-links">
+                            <a href="#" class="pixel-btn" onclick="openModal('game1')">
+                                <i class="fa fa-play"></i> Demo
+                            </a>
+                            <a href="#" class="pixel-btn">
+                                <i class="fa-brands fa-github"></i> Source
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="game-item" data-aos="fade-up" data-aos-delay="100">
+                        <!-- Image Carousel for Game 2 -->
+                        <div class="carousel" id="carousel2">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="img/Farm_Horizons1.png" alt="Farm Horizons - Screenshot 1">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="img/Farm_Horizons2.png" alt="Farm Horizons - Screenshot 2">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="img/Farm_Horizons3.png" alt="Farm Horizons - Screenshot 3">
+                                </div>
+                            </div>
+                            <button class="carousel-control carousel-prev" onclick="moveCarousel('carousel2', -1)">
+                                <i class="fa fa-chevron-left"></i>
+                            </button>
+                            <button class="carousel-control carousel-next" onclick="moveCarousel('carousel2', 1)">
+                                <i class="fa fa-chevron-right"></i>
+                            </button>
+                            <div class="carousel-indicators">
+                                <div class="carousel-indicator active" onclick="goToSlide('carousel2', 0)"></div>
+                                <div class="carousel-indicator" onclick="goToSlide('carousel2', 1)"></div>
+                                <div class="carousel-indicator" onclick="goToSlide('carousel2', 2)"></div>
+                            </div>
+                        </div>
+                        <h3 class="game-title">Dungeon Delver</h3>
+                        <p class="game-desc">A simple farming RPG where players manage their own farm, grow crops, raise animals, and build relationships with the local community. Each season brings new challenges and opportunities to expand the farm, with an emphasis on resource management and creating a thriving homestead. Enjoy a peaceful, relaxing gameplay experience with easy-to-learn mechanics and a charming, top-down view.</p>
+                        <div class="game-links">
+                            <a href="#" class="pixel-btn" onclick="openModal('game2')">
+                                <i class="fa fa-play"></i> Demo
+                            </a>
+                            <a href="#" class="pixel-btn">
+                                <i class="fa-brands fa-github"></i> Source
+                            </a>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer id="contact" data-aos="fade-up">
+        <div class="container">
+            <div class="flex justify-center space-x-4" data-aos="fade-up">
+                <a href="https://instagram.com/0xferdii" target="_blank" class="text-white hover:text-gray-300">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://github.com/valter-code" target="_blank" class="text-white hover:text-gray-300">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+            </div>
+            <p class="text-sm text-white">© 2025 Ferdi. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Game Demo Modals -->
+    <div id="gameModal1" class="modal">
+        <div class="modal-content">
+            <img src="/api/placeholder/800/500" alt="Pixel Knight: The Lost Relic" class="modal-image">
+            <h3 class="game-title">Pixel Knight: The Lost Relic</h3>
+            <p>Experience the adventure in this side-scrolling action RPG. This gameplay demo shows the first level with basic combat mechanics and the first boss encounter.</p>
+            <button class="modal-close" onclick="closeModal('game1')">Close</button>
+        </div>
+    </div>
+
+    <div id="gameModal2" class="modal">
+        <div class="modal-content">
+            <img src="/api/placeholder/800/500" alt="Dungeon Delver" class="modal-image">
+            <h3 class="game-title">Dungeon Delver</h3>
+            <p>Dive into procedurally generated dungeons in this roguelike RPG. The demo showcases the character creation system and the first level with basic combat.</p>
+            <button class="modal-close" onclick="closeModal('game2')">Close</button>
+        </div>
+    </div>
+
+    <div id="gameModal3" class="modal">
+        <div class="modal-content">
+            <img src="/api/placeholder/800/500" alt="Chrono Tactics" class="modal-image">
+            <h3 class="game-title">Chrono Tactics</h3>
+            <p>Command your squad in this turn-based tactical RPG with time manipulation. This demo features a tutorial battle showcasing the unique time control mechanics.</p>
+            <button class="modal-close" onclick="closeModal('game3')">Close</button>
+        </div>
+    </div>
+
+    <div id="gameModal4" class="modal">
+        <div class="modal-content">
+            <img src="/api/placeholder/800/500" alt="Pixel Farm Simulator" class="modal-image">
+            <h3 class="game-title">Pixel Farm Simulator</h3>
+            <p>Build and manage your dream farm in this relaxing simulation game. The demo shows the first season gameplay with basic farming mechanics and villager interactions.</p>
+            <button class="modal-close" onclick="closeModal('game4')">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Initialize AOS animation library
+        AOS.init({
+            duration: 1000,
+            easing: 'ease',
+            once: true,
+            mirror: false
+        });
+
+        // Modal functions
+        function openModal(gameId) {
+            document.getElementById('gameModal' + gameId.replace('game', '')).classList.add('show');
+        }
+
+        function closeModal(gameId) {
+            document.getElementById('gameModal' + gameId.replace('game', '')).classList.remove('show');
+        }
+
+        // Close modal when clicking outside
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('show');
+                }
+            });
+        });
+
+        // Carousel functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize all carousels
+            initializeCarousels();
+        });
+
+        function initializeCarousels() {
+            const carousels = document.querySelectorAll('.carousel');
+            carousels.forEach(carousel => {
+                const id = carousel.id;
+                setupCarousel(id);
+            });
+        }
+
+        function setupCarousel(carouselId) {
+            const carousel = document.getElementById(carouselId);
+            const items = carousel.querySelectorAll('.carousel-item');
+            
+            // Set initial state
+            items.forEach((item, index) => {
+                if (index === 0) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+
+            // Update indicators
+            updateIndicators(carouselId, 0);
+        }
+
+        function getCurrentSlideIndex(carouselId) {
+            const carousel = document.getElementById(carouselId);
+            const items = carousel.querySelectorAll('.carousel-item');
+            
+            for (let i = 0; i < items.length; i++) {
+                if (items[i].classList.contains('active')) {
+                    return i;
+                }
+            }
+            return 0;
+        }
+
+        function moveCarousel(carouselId, direction) {
+            const carousel = document.getElementById(carouselId);
+            const items = carousel.querySelectorAll('.carousel-item');
+            const currentIndex = getCurrentSlideIndex(carouselId);
+            
+            let newIndex = currentIndex + direction;
+            
+            // Handle wrapping
+            if (newIndex >= items.length) {
+                newIndex = 0;
+            } else if (newIndex < 0) {
+                newIndex = items.length - 1;
+            }
+            
+            goToSlide(carouselId, newIndex);
+        }
+
+        function goToSlide(carouselId, slideIndex) {
+            const carousel = document.getElementById(carouselId);
+            const items = carousel.querySelectorAll('.carousel-item');
+            const inner = carousel.querySelector('.carousel-inner');
+            
+            // Update active class
+            items.forEach((item, index) => {
+                if (index === slideIndex) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+            
+            // Transform the inner container to show the current slide
+            inner.style.transform = `translateX(-${slideIndex * 100}%)`;
+            
+            // Update indicators
+            updateIndicators(carouselId, slideIndex);
+        }
+
+        function updateIndicators(carouselId, activeIndex) {
+            const carousel = document.getElementById(carouselId);
+            const indicators = carousel.querySelectorAll('.carousel-indicator');
+            
+            indicators.forEach((indicator, index) => {
+                if (index === activeIndex) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
